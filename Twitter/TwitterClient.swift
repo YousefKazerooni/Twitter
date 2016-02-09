@@ -8,8 +8,6 @@
 
 import UIKit
 import BDBOAuth1Manager
-
-class TwitterClient: BDBOAuth1SessionManager {
     
     let twitterBaseUrl = NSURL(string: "https://api.twitter.com")
     let twitterConsumerKey = "tUnMs3fqqBNPqIcbi857FHb7t"
@@ -30,4 +28,3 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
 
-}
