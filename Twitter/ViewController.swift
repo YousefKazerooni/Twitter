@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BDBOAuth1Manager
 
 class ViewController: UIViewController {
 
@@ -20,6 +21,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func onLogin(sender: AnyObject) {
+        TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
+    TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth_request_token", method: "GET", callbackURL: NSURL(string: "cputwitterdemo://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
+            print ("got the request token.")
+            }) { (error: NSError!) -> Void in
+                print ("failed to get request token.")
+        }
+    }
 
 }
 
