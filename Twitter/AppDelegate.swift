@@ -42,51 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    
+    
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        TwitterClient.sharedInstance.fetchAccessTokenWithPath("oauth/access_token",
-            method: "POST",
-            requestToken: BDBOAuth1Credential(queryString: url.query),
-            success: { (accessToken: BDBOAuth1Credential!) -> Void in
-                print("Got the access token!")
-                
-                TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
-                
-                TwitterClient.sharedInstance.GET(
-                    "1.1/account/verify_credentials.json",
-                    parameters: nil,
-                    success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
-                        //print("user: \(response!)")
-                    },
-                    failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
-                        print("error getting current user")
-                        
-                })
-                
-                TwitterClient.sharedInstance.GET(
-                    "1.1/statuses/home_timeline.json",
-                    parameters: nil,
-                    success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
-                        //print("home_timeline: \(response!)")
-                        
-                        
-                        //Minute 10:15 second video -- testing something out?
-                        //More checking to see if the code works so far
-                        var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
-                        
-                        for tweet in tweets {
-                            print ("text: \(tweet.text)") //still working on: created:tweet.createdAt
-                            
-                        }
-                    },
-                    failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
-                        print("error getting current user")
-                        
-                })
-                
-            },
-            failure: { (error: NSError!) -> Void in
-                print("Failed to receive access token")
-        })
+        //when the application receives a URL it chains it on over to twitter
+        TwitterClient.sharedInstance.openURL(url)
         return true
     }
 
