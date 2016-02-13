@@ -13,11 +13,32 @@ import BDBOAuth1Manager
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    //to have access to the storyboard after persistence
+    var storyboard = UIStoryboard(name: "Main", bundle: nil)
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
+        
+        //check to see if there is a current user
+        if User.currentUser != nil {
+            //Go to the screen after the login page
+            print("Current user detected")
+            
+            var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as UIViewController
+            window?.rootViewController = vc
+            
+        }
+        
         return true
+    }
+    
+    func userDidLogout() {
+        //resetting the world back
+        var vc = storyboard.instantiateInitialViewController()! as UIViewController
+        window?.rootViewController = vc
     }
 
     func applicationWillResignActive(application: UIApplication) {

@@ -25,14 +25,15 @@ class ViewController: UIViewController {
         
         //have to create the loginWithCompletion method in TwitterClient
         TwitterClient.sharedInstance.loginWithCompletion(){
-            (user: user?, error: NSError?) in
+            (user: User?, error: NSError?) in
             if user != nil{
-                //perform seque
+                //perform seque, so that instead of going back to the 
+                //login page, we go to the timeline page
+                self.performSegueWithIdentifier("loginSegue", sender: self)
             }else {
                 // handle login error
             }
         }
-        
      
     }
 

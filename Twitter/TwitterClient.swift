@@ -31,6 +31,24 @@ import BDBOAuth1Manager
             return Static.instance
         }
         
+        func homeTimelineWithParams (params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+            GET( "1.1/statuses/home_timeline.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+                    //print("home_timeline: \(response!)")
+                    
+                    
+                    //Minute 10:15 second video -- testing something out?
+                    //More checking to see if the code works so far
+                    var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
+                    completion(tweets: tweets, error: nil)
+            
+                }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                    print("error getting current user")
+        completion(tweets: nil, error: error)
+        
+            })
+        }
+        
+        
         
         //creating the completion method to be used in controllviewer
         func  loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
@@ -69,6 +87,9 @@ import BDBOAuth1Manager
                         success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
                             //print("user: \(response!)")
                             var user = User(dictionary: response as! NSDictionary)
+                            
+                            //persisting the user as the current user
+                            User.currentUser = user
                             print ("user: \(user.name)")
                             self.loginCompletion?(user: user, error: nil)
                         },
@@ -76,27 +97,26 @@ import BDBOAuth1Manager
                             print("error getting current user")
                             self.loginCompletion?(user: nil, error: error)
                     })
-                    
-                    TwitterClient.sharedInstance.GET(
-                        "1.1/statuses/home_timeline.json",
-                        parameters: nil,
-                        success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
-                            //print("home_timeline: \(response!)")
-                            
-                            
-                            //Minute 10:15 second video -- testing something out?
-                            //More checking to see if the code works so far
-                            var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
-                            
-                            for tweet in tweets {
-                                print ("text: \(tweet.text)") //still working on: created:tweet.createdAt
-                                
-                            }
-                        },
-                        failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
-                            print("error getting current user")
-                            
-                    })
+ 
+// *****moving the following code to the func homeTimelineWithParams above:
+//                    TwitterClient.sharedInstance.GET(
+//                        "1.1/statuses/home_timeline.json", parameters: nil, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+//                            //print("home_timeline: \(response!)")
+//                            
+//                            
+//                            //Minute 10:15 second video -- testing something out?
+//                            //More checking to see if the code works so far
+//                            var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
+//                            
+//                            for tweet in tweets {
+//                                print ("text: \(tweet.text)") //still working on: created:tweet.createdAt
+//                                
+//                            }
+//                        },
+//                        failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+//                            print("error getting current user")
+//                            
+//                    })
                     
                 },
                 failure: { (error: NSError!) -> Void in
