@@ -19,12 +19,12 @@ class Tweet: NSObject {
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String
         
-//        //The time is given as greenich mean time, and we need to parse it
-//        //We use the documentation for NSFormatter, and twitter's guidlines
-//        var formatter = NSDateFormatter()
-//        formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
-//        createdAtString = formatter.dateFromString(createdAtString!)
-//        
+        //The time is given as greenich mean time, and we need to parse it
+        //We use the documentation for NSFormatter, and twitter's guidlines
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
+        createdAt = formatter.dateFromString(createdAtString!)
+        
     }
     
     //Convenience method that parses an array of tweets
