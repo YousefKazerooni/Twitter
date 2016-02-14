@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //Go to the screen after the login page
             print("Current user detected")
             
-            var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as UIViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("HomeNavigationController") as! UINavigationController
             window?.rootViewController = vc
             
         }
@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func userDidLogout() {
         //resetting the world back
-        var vc = storyboard.instantiateInitialViewController()! as UIViewController
+        var vc = storyboard.instantiateViewControllerWithIdentifier("HomeNavigationController") as! UINavigationController
         window?.rootViewController = vc
     }
 

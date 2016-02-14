@@ -13,6 +13,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var tableView: UITableView!
     var tweets: [Tweet]?
+    var refreshControl: UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +22,18 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        
+        apiNetworkRequest()
+        
+        // Initialize a UIRefreshControl
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+       
         
         
-        TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
-            self.tweets = tweets
-            self.tableView.reloadData()
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +45,15 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         User.currentUser?.logout()
     }
     
+    
+    func apiNetworkRequest () {
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
+            self.tweets = tweets
+            self.tableView.reloadData()
+            
+        }
+        
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
@@ -58,6 +74,18 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         cell.tweet = tweets![indexPath.row]
         
         return cell
+    }
+    
+    //**********2 RefreshControl
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        
+        // Make network request to fetch latest data
+        apiNetworkRequest()
+        // Do the following when the network request comes back successfully:
+        // Update tableView data source
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
 
 

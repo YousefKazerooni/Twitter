@@ -17,6 +17,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var userNameHandle: UILabel!
     
+    
     var tweet: Tweet! {
         
         
@@ -41,6 +42,10 @@ class TweetCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+//doesn't seem to care About My size constraints
+//        userNameLabel.preferredMaxLayoutWidth = userNameLabel.frame.size.width
+//        dateLabel.preferredMaxLayoutWidth = 67
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -48,5 +53,7 @@ class TweetCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+  
+    
 
 }
