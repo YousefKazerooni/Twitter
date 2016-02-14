@@ -16,6 +16,8 @@
 		6A2CC08F1C6D5600003606A5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CC08E1C6D5600003606A5 /* User.swift */; };
 		6A2CC0911C6D5623003606A5 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CC0901C6D5623003606A5 /* Tweet.swift */; };
 		6A2CC0B81C6FDEB2003606A5 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CC0B71C6FDEB2003606A5 /* TweetsViewController.swift */; };
+		6A2CC0BC1C700E2F003606A5 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CC0BB1C700E2F003606A5 /* TweetCell.swift */; };
+		6A2CC0BE1C703CC2003606A5 /* HomeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CC0BD1C703CC2003606A5 /* HomeNavigationController.swift */; };
 		F231F821897440FE0E654C8E /* Pods_Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B173EBAB9825C6769E938F8 /* Pods_Twitter.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +34,8 @@
 		6A2CC08E1C6D5600003606A5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6A2CC0901C6D5623003606A5 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		6A2CC0B71C6FDEB2003606A5 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
+		6A2CC0BB1C700E2F003606A5 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		6A2CC0BD1C703CC2003606A5 /* HomeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNavigationController.swift; sourceTree = "<group>"; };
 		6B173EBAB9825C6769E938F8 /* Pods_Twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2272FA5AC683C2E9A2889F7 /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				6A1CDEE31C699A1E00C6C704 /* API */,
+				6A2CC08D1C6D55B2003606A5 /* Models */,
+				6A2CC0BA1C700D96003606A5 /* View */,
 				6A2CC0B91C6FDEC1003606A5 /* ViewController */,
 				6A1CDED11C69761400C6C704 /* AppDelegate.swift */,
 				6A1CDED51C69761400C6C704 /* Main.storyboard */,
@@ -101,7 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				6A1CDEE41C699ACF00C6C704 /* TwitterClient.swift */,
-				6A2CC08D1C6D55B2003606A5 /* Models */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -120,8 +125,17 @@
 			children = (
 				6A2CC0B71C6FDEB2003606A5 /* TweetsViewController.swift */,
 				6A1CDED31C69761400C6C704 /* ViewController.swift */,
+				6A2CC0BD1C703CC2003606A5 /* HomeNavigationController.swift */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		6A2CC0BA1C700D96003606A5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6A2CC0BB1C700E2F003606A5 /* TweetCell.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,10 +262,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A2CC08F1C6D5600003606A5 /* User.swift in Sources */,
+				6A2CC0BC1C700E2F003606A5 /* TweetCell.swift in Sources */,
 				6A2CC0911C6D5623003606A5 /* Tweet.swift in Sources */,
 				6A2CC0B81C6FDEB2003606A5 /* TweetsViewController.swift in Sources */,
 				6A1CDED41C69761400C6C704 /* ViewController.swift in Sources */,
 				6A1CDEE51C699ACF00C6C704 /* TwitterClient.swift in Sources */,
+				6A2CC0BE1C703CC2003606A5 /* HomeNavigationController.swift in Sources */,
 				6A1CDED21C69761400C6C704 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
