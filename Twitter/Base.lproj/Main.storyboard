@@ -91,6 +91,9 @@
                                                         <constraint firstAttribute="height" constant="32" id="eUB-D8-fBC"/>
                                                     </constraints>
                                                     <state key="normal" title="Favorite" image="like-action"/>
+                                                    <connections>
+                                                        <action selector="onLike:" destination="6Fx-lG-lZV" eventType="touchUpInside" id="1qN-cg-z7a"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7J-GE-AKp">
                                                     <rect key="frame" x="65" y="113" width="28" height="28"/>
@@ -99,6 +102,9 @@
                                                         <constraint firstAttribute="height" constant="28" id="Efl-pE-I8U"/>
                                                     </constraints>
                                                     <state key="normal" title="Reweet" image="retweet-action"/>
+                                                    <connections>
+                                                        <action selector="onRetweet:" destination="6Fx-lG-lZV" eventType="touchUpInside" id="p0i-WG-FET"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I will see you tomorrow how are " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUX-cs-2Mu">
                                                     <rect key="frame" x="65" y="45" width="246" height="16"/>
@@ -148,7 +154,11 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="Je3-IE-wqN" id="o08-Ug-Y5b"/>
+                                            <outlet property="favoriteButton" destination="Y5o-Cw-6CH" id="tZg-1F-UCf"/>
+                                            <outlet property="favoriteLabel" destination="vGz-hG-mxU" id="mSz-iV-9W3"/>
                                             <outlet property="profilePictureImageView" destination="6UF-wn-8ZO" id="Zfk-Oz-yDu"/>
+                                            <outlet property="retweetButton" destination="n7J-GE-AKp" id="4sX-5f-hcd"/>
+                                            <outlet property="retweetLabel" destination="Ra2-La-IM3" id="gia-Cp-xBW"/>
                                             <outlet property="tweetTextLabel" destination="HUX-cs-2Mu" id="z41-dB-e0H"/>
                                             <outlet property="userNameHandle" destination="9rs-bc-uxm" id="p1V-eR-GIZ"/>
                                             <outlet property="userNameLabel" destination="FEK-F4-k5b" id="f1y-fy-TOC"/>
@@ -170,7 +180,11 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aCg-04-LDZ">
                                 <rect key="frame" x="16" y="7" width="51" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <state key="normal" title="LogOut"/>
+                                <connections>
+                                    <action selector="onLogout:" destination="jFG-lG-Upe" eventType="touchUpInside" id="iA5-Y9-1Ie"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -185,7 +199,6 @@
         <!--Home Navigation Controller-->
         <scene sceneID="Dtm-76-U7c">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BJG-eY-zl0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="HomeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Za5-WL-wuw" customClass="HomeNavigationController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uHz-Wf-VOV">
@@ -197,6 +210,7 @@
                         <segue destination="jFG-lG-Upe" kind="relationship" relationship="rootViewController" id="Om3-J0-Sbi"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BJG-eY-zl0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="526" y="267"/>
         </scene>

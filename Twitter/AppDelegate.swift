@@ -37,7 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func userDidLogout() {
         //resetting the world back
-        var vc = storyboard.instantiateViewControllerWithIdentifier("HomeNavigationController") as! UINavigationController
+        let vc = storyboard.instantiateInitialViewController()! as UIViewController
+        //var vc = storyboard.instantiateViewControllerWithIdentifier("HomeNavigationController") as! UINavigationController
         window?.rootViewController = vc
     }
 

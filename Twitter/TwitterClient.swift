@@ -73,26 +73,18 @@ import BDBOAuth1Manager
             
         }
         
-        func openURL(url: NSURL) {
-            fetchAccessTokenWithPath("oauth/access_token",
-                method: "POST",
-                requestToken: BDBOAuth1Credential(queryString: url.query),
-                success: { (accessToken: BDBOAuth1Credential!) -> Void in
-                    print("Got the access token!")
+        func openURL(url: NSURL) {fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken:BDBOAuth1Credential!) -> Void in
+                print("Got the access token!")
                     
-                    TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
-                    TwitterClient.sharedInstance.GET(
-                        "1.1/account/verify_credentials.json",
-                        parameters: nil,
-                        success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+                TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
+                TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json",parameters: nil,success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
                             //print("user: \(response!)")
-                            var user = User(dictionary: response as! NSDictionary)
+                       var user = User(dictionary: response as! NSDictionary)
                             
                             //persisting the user as the current user
-                            User.currentUser = user
-                            print ("user: \(user.name)")
-                            self.loginCompletion?(user: user, error: nil)
-                        },
+                        User.currentUser = user
+                        print ("user: \(user.name)")
+                        self.loginCompletion?(user: user, error: nil)},
                         failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
                             print("error getting current user")
                             self.loginCompletion?(user: nil, error: error)
@@ -124,10 +116,31 @@ import BDBOAuth1Manager
                     self.loginCompletion?(user: nil, error: error)
             })
 
-            
-            
-            
         }
+        
+        
+        //The following two fuctions
+        //are curtsey of @r3dcrosse on gitHub
+        func retweet(id: Int, params: NSDictionary?, completion: (error: NSError?) -> () ){
+            POST("1.1/statuses/retweet/\(id).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+                print("Retweeted tweet with id: \(id)")
+                completion(error: nil)
+                }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                    print("Couldn't retweet")
+                    completion(error: error)
+                }
+            )
+        }
+        
+        func likeTweet(id: Int, params: NSDictionary?, completion: (error: NSError?) -> () ){
+            POST("1.1/favorites/create.json?id=\(id)", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+                print("Liked tweet with id: \(id)")
+                completion(error: nil)
+                }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                    print("Couldn't like tweet")
+                    completion(error: error)
+                }
+            )}
         
     }
 
