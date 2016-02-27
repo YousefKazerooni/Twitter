@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetCellButtonDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -71,6 +71,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
+        cell.buttonDelegate = self
         cell.tweet = tweets![indexPath.row]
         
         return cell
@@ -86,6 +87,36 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         // Update tableView data source
         self.tableView.reloadData()
         refreshControl.endRefreshing()
+    }
+   
+    
+    
+    //Functions used to satisfy the protocol
+    func retweetClicked(tweetCell: TweetCell){
+                TwitterClient.sharedInstance.retweet(Int(tweetCell.tweetID)!, params: nil, completion: {(error) -> () in
+                    tweetCell.retweetButton.setImage(UIImage(named: "retweet-action-on"), forState: UIControlState.Selected)
+        
+                    if tweetCell.retweetLabel.text! > "0" {
+                        tweetCell.retweetLabel.text = String(tweetCell.tweet.retweetCount! + 1)
+                    } else {
+                        tweetCell.retweetLabel.hidden = false
+                        tweetCell.retweetLabel.text = String(tweetCell.tweet.retweetCount! + 1)
+                    }
+                })
+        
+    }
+    func favoriteClicked(tweetCell: TweetCell){
+                TwitterClient.sharedInstance.likeTweet(Int(tweetCell.tweetID)!, params: nil, completion: {(error) -> () in
+                    tweetCell.favoriteButton.setImage(UIImage(named: "like-action-on"), forState: UIControlState.Selected)
+        
+                    if tweetCell.favoriteLabel.text! > "0" {
+                        tweetCell.favoriteLabel.text = String(tweetCell.tweet.likeCount! + 1)
+                    } else {
+                        tweetCell.favoriteLabel.hidden = false
+                        tweetCell.favoriteLabel.text = String(tweetCell.tweet.likeCount! + 1)
+                    }
+                })
+        
     }
 
 

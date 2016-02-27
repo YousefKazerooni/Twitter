@@ -14,12 +14,16 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var userNameHandle: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
     
     var tweet: Tweet!
+    
+    //declaring tweetCell just so that I can access the timestamp function
+    //???????var tweetCell: TweetCell?
 
-//    userNameLabel.text = "\((tweet.user?.name)!)"
-//    userNameHandle.text = "@" + "\((tweet.user?.screenname)!)"
-//    tweetTextLabel.text = tweet.text
+
     
 
     override func viewDidLoad() {
@@ -27,9 +31,17 @@ class DetailsViewController: UIViewController {
         
         print("\(tweet)")
         userNameLabel.text = "\((tweet.user?.name)!)"
+        userNameHandle.text = "@" + "\((tweet.user?.screenname)!)"
+        tweetTextLabel.text = tweet.text
+        
+        //Retrieving the image
+        let imageUrl = tweet.user?.profileImageUrl!
+        profilePictureImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+        
+        //???????dateLabel.text = tweetCell!.calculateTimeStamp(tweet.createdAt!.timeIntervalSinceNow)
     
 
-        // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {

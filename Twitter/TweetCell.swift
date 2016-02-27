@@ -9,6 +9,12 @@
 import UIKit
 import AFNetworking
 
+//Protocol curtsey of @r3dcrosse
+protocol TweetCellButtonDelegate: class {
+    func retweetClicked(tweetCell: TweetCell)
+    func favoriteClicked(tweetCell: TweetCell)
+}
+
 class TweetCell: UITableViewCell {
 
     
@@ -22,6 +28,9 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var retweetLabel: UILabel!
     @IBOutlet weak var favoriteLabel: UILabel!
+    
+    //In relation to the protocol. Curtsey of @r3dcrosse
+    weak var buttonDelegate: TweetCellButtonDelegate?
     
     var tweetID: String = ""
     
@@ -109,30 +118,34 @@ class TweetCell: UITableViewCell {
     
     
     //The two following fuctions are curtsey of @r3dcrosse from gitHub
+    
     @IBAction func onRetweet(sender: AnyObject) {
-        TwitterClient.sharedInstance.retweet(Int(tweetID)!, params: nil, completion: {(error) -> () in
-            self.retweetButton.setImage(UIImage(named: "retweet-action-on"), forState: UIControlState.Selected)
-            
-            if self.retweetLabel.text! > "0" {
-                self.retweetLabel.text = String(self.tweet.retweetCount! + 1)
-            } else {
-                self.retweetLabel.hidden = false
-                self.retweetLabel.text = String(self.tweet.retweetCount! + 1)
-            }
-        })
+        
+        buttonDelegate?.retweetClicked(self)
+//        TwitterClient.sharedInstance.retweet(Int(tweetID)!, params: nil, completion: {(error) -> () in
+//            self.retweetButton.setImage(UIImage(named: "retweet-action-on"), forState: UIControlState.Selected)
+//            
+//            if self.retweetLabel.text! > "0" {
+//                self.retweetLabel.text = String(self.tweet.retweetCount! + 1)
+//            } else {
+//                self.retweetLabel.hidden = false
+//                self.retweetLabel.text = String(self.tweet.retweetCount! + 1)
+//            }
+//        })
     }
     
     @IBAction func onLike(sender: AnyObject) {
-        TwitterClient.sharedInstance.likeTweet(Int(tweetID)!, params: nil, completion: {(error) -> () in
-            self.favoriteButton.setImage(UIImage(named: "like-action-on"), forState: UIControlState.Selected)
-            
-            if self.favoriteLabel.text! > "0" {
-                self.favoriteLabel.text = String(self.tweet.likeCount! + 1)
-            } else {
-                self.favoriteLabel.hidden = false
-                self.favoriteLabel.text = String(self.tweet.likeCount! + 1)
-            }
-        })
+        buttonDelegate?.favoriteClicked(self)
+//        TwitterClient.sharedInstance.likeTweet(Int(tweetID)!, params: nil, completion: {(error) -> () in
+//            self.favoriteButton.setImage(UIImage(named: "like-action-on"), forState: UIControlState.Selected)
+//            
+//            if self.favoriteLabel.text! > "0" {
+//                self.favoriteLabel.text = String(self.tweet.likeCount! + 1)
+//            } else {
+//                self.favoriteLabel.hidden = false
+//                self.favoriteLabel.text = String(self.tweet.likeCount! + 1)
+//            }
+//        })
     }
 
     
