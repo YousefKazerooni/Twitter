@@ -9,9 +9,25 @@
 import UIKit
 
 class DetailsViewController: UIViewController {
+    
+    
+    @IBOutlet weak var profilePictureImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var tweetTextLabel: UILabel!
+    
+    var tweet: Tweet!
+
+//    userNameLabel.text = "\((tweet.user?.name)!)"
+//    userNameHandle.text = "@" + "\((tweet.user?.screenname)!)"
+//    tweetTextLabel.text = tweet.text
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("\(tweet)")
+        userNameLabel.text = "\((tweet.user?.name)!)"
+    
 
         // Do any additional setup after loading the view.
     }
