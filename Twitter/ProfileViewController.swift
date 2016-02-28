@@ -25,27 +25,45 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //profilePictureImageView.setImageWithURL((user?.profileImageUrl)!)
+        let imageUrl = (user?.profileImageUrl!)!
+        profilePictureImageView.setImageWithURL(NSURL(string: imageUrl)!)
+        
+        
+        
+        //let banner = (user?.bannerImageUrl!)!
+        bannerImageView.setImageWithURL((user?.bannerImageUrl!)!)
+        
+        
         userNameLabel.text = user?.name
-        userNameHandleLabel.text = "@\(user?.screenname)"
+        userNameHandleLabel.text = "@\((user?.screenname)!)"
         tweetsToatlLabel.text = String(user!.statusesCount)
         followingTotalLabel.text = String(user!.followingTotal)
         followersTotalLabel.text = String(user!.followersTotal)
         
-        let userID = user?.userID
-        let banner = TwitterClient.sharedInstance.getUserBanner(userID!, params: nil) { (error) -> () in
+        
+        let profileID = user?.screenname!
+        
+        TwitterClient.sharedInstance.userTweets( profileID!, params: nil) { (error) -> () in
             
         }
-        print("banner for \(user!.name!) is here: \(banner)")
         
+        
+        //let userID = user?.userID
+//        let banner = TwitterClient.sharedInstance.getUserBanner(userID!, params: nil) { (error) -> () in
+//            
+//        }
+//        print("banner for \(user!.name!) is here: \(banner)")
+//        
 
-        // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+ 
     
 
     /*

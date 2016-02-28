@@ -20,6 +20,7 @@ class User: NSObject {
     var name: String?
     var screenname: String?
     var profileImageUrl: String?
+    var bannerImageUrl: NSURL?
     var tagline: String?
     //for fun we will also include the actual dictionary
     var dictionary: NSDictionary
@@ -39,6 +40,11 @@ class User: NSObject {
         followersTotal = dictionary["followers_count"] as! Int
         followingTotal = dictionary["friends_count"] as! Int
         statusesCount = dictionary["statuses_count"] as! Int
+        
+        let banner = dictionary["profile_background_image_url_https"] as? String
+        if banner != nil {
+            bannerImageUrl = NSURL(string: banner!)!
+        }
     }
     
     func logout() {
