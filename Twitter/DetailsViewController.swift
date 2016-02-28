@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import AFNetworking
 
-class DetailsViewController: UIViewController {
+
+class DetailsViewController: UIViewController, TweetCellButtonDelegate {
     
     
     @IBOutlet weak var profilePictureImageView: UIImageView!
@@ -17,7 +19,17 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var userNameHandle: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
     
+    
+    //weak var buttonDelegate: TweetCellButtonDelegate?
+    let detailsViewController = DetailsViewController!.self
+
+    
+
+
+    var tweetCell: TweetCell
     var tweet: Tweet!
     
     //declaring tweetCell just so that I can access the timestamp function
@@ -49,6 +61,50 @@ class DetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    
+    
+//    @IBAction func onLike(sender: AnyObject) {
+//        buttonDelegate?.retweetClicked(tweetCell)
+//    }
+//    
+//    
+//    @IBAction func onRetweet(sender: AnyObject) {
+//        retweetClicked(TweetCell)
+//    }
+    
+    
+    
+    
+    //Functions used to satisfy the protocol
+    func retweetClicked(tweetCell: TweetCell){
+        TwitterClient.sharedInstance.retweet(Int(tweetCell.tweetID)!, params: nil, completion: {(error) -> () in
+            tweetCell.retweetButton.setImage(UIImage(named: "retweet-action-on"), forState: UIControlState.Selected)
+            
+            if tweetCell.retweetLabel.text! > "0" {
+                tweetCell.retweetLabel.text = String(tweetCell.tweet.retweetCount! + 1)
+            } else {
+                tweetCell.retweetLabel.hidden = false
+                tweetCell.retweetLabel.text = String(tweetCell.tweet.retweetCount! + 1)
+            }
+        })
+        
+    }
+    func favoriteClicked(tweetCell: TweetCell){
+        TwitterClient.sharedInstance.likeTweet(Int(tweetCell.tweetID)!, params: nil, completion: {(error) -> () in
+            tweetCell.favoriteButton.setImage(UIImage(named: "like-action-on"), forState: UIControlState.Selected)
+            
+            if tweetCell.favoriteLabel.text! > "0" {
+                tweetCell.favoriteLabel.text = String(tweetCell.tweet.likeCount! + 1)
+            } else {
+                tweetCell.favoriteLabel.hidden = false
+                tweetCell.favoriteLabel.text = String(tweetCell.tweet.likeCount! + 1)
+            }
+        })
+        
+    }
+
 
     /*
     // MARK: - Navigation
