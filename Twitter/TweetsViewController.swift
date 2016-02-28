@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetCellButtonDelegate {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -71,7 +71,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
-        cell.buttonDelegate = self
         cell.tweet = tweets![indexPath.row]
         
         return cell
@@ -91,33 +90,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
    
     
     
-    //Functions used to satisfy the protocol
-    func retweetClicked(tweetCell: TweetCell){
-                TwitterClient.sharedInstance.retweet(Int(tweetCell.tweetID)!, params: nil, completion: {(error) -> () in
-                    tweetCell.retweetButton.setImage(UIImage(named: "retweet-action-on"), forState: UIControlState.Selected)
-        
-                    if tweetCell.retweetLabel.text! > "0" {
-                        tweetCell.retweetLabel.text = String(tweetCell.tweet.retweetCount! + 1)
-                    } else {
-                        tweetCell.retweetLabel.hidden = false
-                        tweetCell.retweetLabel.text = String(tweetCell.tweet.retweetCount! + 1)
-                    }
-                })
-        
-    }
-    func favoriteClicked(tweetCell: TweetCell){
-                TwitterClient.sharedInstance.likeTweet(Int(tweetCell.tweetID)!, params: nil, completion: {(error) -> () in
-                    tweetCell.favoriteButton.setImage(UIImage(named: "like-action-on"), forState: UIControlState.Selected)
-        
-                    if tweetCell.favoriteLabel.text! > "0" {
-                        tweetCell.favoriteLabel.text = String(tweetCell.tweet.likeCount! + 1)
-                    } else {
-                        tweetCell.favoriteLabel.hidden = false
-                        tweetCell.favoriteLabel.text = String(tweetCell.tweet.likeCount! + 1)
-                    }
-                })
-        
-    }
 
 
     
@@ -125,12 +97,46 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let cell = sender as! UITableViewCell
-        let indexpath = tableView.indexPathForCell(cell)
-        let tweet = tweets![indexpath!.row] 
+    
+        if (segue.identifier == "SegueToDetails") {
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPathForCell(cell)
+            let tweet = tweets![indexPath!.row]
+            
+            let tweetDetailViewController = segue.destinationViewController as! DetailsViewController
+            tweetDetailViewController.tweet = tweet
+        }
+        else if (segue.identifier) == "SegueToCompose" {
+            
+            let user = User.currentUser
+            
+            let composeTweetViewController = segue.destinationViewController as! ComposeController
+            composeTweetViewController.user = user
+        }
         
-        let detailsViewController = segue.destinationViewController as! DetailsViewController
-        detailsViewController.tweet = tweet
+        
+        else if (segue.identifier) == "SegueToProfile" {
+            
+            
+            let button = sender as! UIButton
+            let view = button.superview!
+            let cell = view.superview as! TweetCell
+            
+            let indexPath = tableView.indexPathForCell(cell)
+            let tweet = tweets![indexPath!.row]
+            let user = tweet.user
+            
+            let profileViewController = segue.destinationViewController as! ProfileViewController
+            profileViewController.user = user
+            
+        }
+
+//        let cell = sender as! UITableViewCell
+//        let indexpath = tableView.indexPathForCell(cell)
+//        let tweet = tweets![indexpath!.row] 
+//        
+//        let detailsViewController = segue.destinationViewController as! DetailsViewController
+//        detailsViewController.tweet = tweet
         
         
     

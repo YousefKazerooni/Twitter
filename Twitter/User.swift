@@ -23,6 +23,10 @@ class User: NSObject {
     var tagline: String?
     //for fun we will also include the actual dictionary
     var dictionary: NSDictionary
+    var statusesCount: Int
+    var followersTotal: Int
+    var followingTotal: Int
+    var userID: Int
     
     init( dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -31,6 +35,10 @@ class User: NSObject {
         screenname = dictionary["screen_name"] as? String
         profileImageUrl = dictionary["profile_image_url"] as? String
         tagline = dictionary["description"] as? String
+        userID = dictionary["id"] as! Int
+        followersTotal = dictionary["followers_count"] as! Int
+        followingTotal = dictionary["friends_count"] as! Int
+        statusesCount = dictionary["statuses_count"] as! Int
     }
     
     func logout() {
