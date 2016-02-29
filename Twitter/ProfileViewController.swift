@@ -41,9 +41,9 @@ class ProfileViewController: UIViewController {
         followersTotalLabel.text = String(user!.followersTotal)
         
         
-        let profileID = user?.screenname!
+        let profileScreenName = user?.screenname!
         
-        TwitterClient.sharedInstance.userTweets( profileID!, params: nil) { (error) -> () in
+        TwitterClient.sharedInstance.userTweets( profileScreenName!, params: nil) { (error) -> () in
             
         }
         

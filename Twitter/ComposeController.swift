@@ -25,9 +25,12 @@ class ComposeController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var sendTweetButton: UIBarButtonItem!
     @IBOutlet weak var placeHolderLabel: UILabel!
     
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         composeNewTweetView.delegate = self
         userNameHandle.text = "@\(User.currentUser!.screenname!)"
@@ -35,9 +38,9 @@ class ComposeController: UIViewController, UITextViewDelegate {
         profilePictureImageView.setImageWithURL(NSURL(string: (User.currentUser?.profileImageUrl)!)!)
         
         
-        placeHolderLabel.text = "What's Happening?"
-        composeNewTweetView.addSubview(placeHolderLabel)
-        placeHolderLabel.hidden = !composeNewTweetView.text.isEmpty
+//        placeHolderLabel.text = "What's Happening?"
+//        composeNewTweetView.addSubview(placeHolderLabel)
+//        placeHolderLabel.hidden = !composeNewTweetView.text.isEmpty
         
         composeNewTweetView.becomeFirstResponder()
         

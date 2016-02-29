@@ -130,7 +130,7 @@ import BDBOAuth1Manager
         }
         
         //****************************************
-        func userTweets(id: String, params: NSDictionary?, completion: (error: NSError?) -> () ){
+        func userTweets(profileScreenName: String, params: NSDictionary?, completion: (error: NSError?) -> () ){
             GET("1.1/statuses/user_timeline.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
                 print("tweets: \(response)")
                 completion(error: nil)
