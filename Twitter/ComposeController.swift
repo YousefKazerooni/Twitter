@@ -38,9 +38,9 @@ class ComposeController: UIViewController, UITextViewDelegate {
         profilePictureImageView.setImageWithURL(NSURL(string: (User.currentUser?.profileImageUrl)!)!)
         
         
-//        placeHolderLabel.text = "What's Happening?"
-//        composeNewTweetView.addSubview(placeHolderLabel)
-//        placeHolderLabel.hidden = !composeNewTweetView.text.isEmpty
+        placeHolderLabel.text = ""
+        composeNewTweetView.addSubview(placeHolderLabel)
+        placeHolderLabel.hidden = !composeNewTweetView.text.isEmpty
         
         composeNewTweetView.becomeFirstResponder()
         
